@@ -1,14 +1,27 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import InternshipList from './components/InternshipList';
+import InternshipDetail from './components/InternshipDetail';
+import SignUp from './components/SignUp';
+import Login from './components/Login';
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <h1>Welcome to the Tech Internship Matchmaker</h1>
-      <Footer />
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<InternshipList />} />
+          <Route path="/details/:id" element={<InternshipDetail />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<div>Page Not Found</div>} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
