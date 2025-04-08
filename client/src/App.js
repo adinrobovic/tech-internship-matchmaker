@@ -1,4 +1,5 @@
 import React from 'react';
+import DataFetcher from './components/DataFetcher'; 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -12,6 +13,7 @@ function App() {
     <Router>
       <div>
         <Navbar />
+        <DataFetcher /> 
         <Routes>
           <Route path="/" element={<InternshipList />} />
           <Route path="/details/:id" element={<InternshipDetail />} />
