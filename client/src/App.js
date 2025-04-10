@@ -11,8 +11,13 @@ import Login from './components/Login';
 function App() {
   return (
     <Router>
-      <div>
+      <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
         <Navbar />
+
+        <h1 className="text-center text-primary mt-4">
+          Welcome to Tech Internship Matchmaker
+        </h1>
+        
         <DataFetcher /> 
         <Routes>
           <Route path="/" element={<InternshipList />} />
