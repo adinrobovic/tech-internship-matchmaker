@@ -1,30 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function SignUp() {
-    const [inputs,setInputs] = useState({});
-
-    const handleChange = (event) => {
-        const name= event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle submission logic here
-        console.log(inputs);
-    }
-
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Email:
-                <input type="email" name="email" value={inputs.email || ''} onChange={handleChange} />
-            </label>
-            <label>Password:
-                <input type="password" name="password" value={inputs.password || ''} onChange={handleChange} />
-            </label>
-            <button type="submit">Sign Up</button>
-        </form>
+        <div className="container mtt-5 mb-5">
+            <h2 className="text-center mb-4">Create Your Account</h2>
+            <form className="mx-auto" style={{ maxWidth: '500px'}}>
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label">Full Name</label>
+                    <input type="text" className="form-control" id="name" placeholder="Enter your full name" />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email Address</label>
+                    <input type="email" className="form-control" id="email" placeholder="Enter your email" />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input type="password" className="form-control" id="password" placeholder="Create a password" />
+                </div>
+                <button type="submit" className="btn btn-primary w-100">Sign Up</button>
+            </form>
+        </div>
     );
 }
 

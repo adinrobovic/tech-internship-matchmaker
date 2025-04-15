@@ -1,30 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function Login() {
-    const [inputs, setInputs] = useState({});
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle login logic here
-        console.log(inputs);
-    }
-
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Email:
-                <input type = "email" name="email" value={inputs.email || ''} onChange={handleChange} />
-            </label>
-            <label>Password:
-                <input type = "password" name="password" value={inputs.password || ''} onChange={handleChange} />
-            </label>
-            <button type="submit">Login</button>
-        </form>
+        <div className="container mt-5 mb-5">
+            <h2 className="text-center mb-4">Login to your Account</h2>
+            <form className="mx-auto" style={{ maxWidth: '500px'}}>
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email Address</label>
+                    <input type="email" className="form-control" id="email" placeholder="Enter your email" />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input type="password" className="form-control" id="password" placeholder="Enter your password" />
+                </div>
+                <button type="submit" className="btn btn-primary w-100">Login</button>
+            </form>
+        </div>
     );
 }
 

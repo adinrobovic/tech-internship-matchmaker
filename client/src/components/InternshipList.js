@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function InternshipList() {
     const internships = [
@@ -18,7 +19,9 @@ function InternshipList() {
                                 <h5 className="card-title">{intern.title}</h5>
                                 <h6 className="card-subtitle mb-2 text-muted">{internships.company}</h6>
                                 <p className="card-text">{intern.location}</p>
-                                <button className="btn btn-primary w-100">View Details</button>
+                                <Link to="/details/1" className="btn custom-btn w-100 mt-3">
+                                    View Details
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -19,7 +19,7 @@ function DataFetcher() {
 
     return (
         <div>
-            Check console for data.
+            
         </div>
     );
 }

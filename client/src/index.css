@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --bs-primary: #6366f1; /* Indigo 500 */
+}
+
+.btn-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+.custom-gradient {
+  background: linear-gradient(90deg, #4f46e5, #3b82f6); /* Purple to Blue */
+}
+
+.custom-btn {
+  background: linear-gradient(90deg, #4f46e5, #3b82f6); /* purple to blue */
+  color: white;
+  border: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.custom-btn:hover {
+  opacity: 0.85;
+}
+
