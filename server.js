@@ -1,11 +1,18 @@
-// This code initializes an Express applicatoin and sets up a basic route that responds with "Hello World!" when you access the root URL.
+//This code initializes an Express applicatoin and sets up a basic route that responds with "Hello World!" when you access the root URL.
 
+const cors = require('cors');
 const express = require('express');
 const app = express();
 
+//For development, allow all origins
+app.use(cors());
+
+//For production/ restrict origins
+//app.use(cors({ origin: 'https://yourdomain.com}));
+
 //Define a route handler for the default home page
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/api/data', (req, res) => {
+    res.send({ message: "Successfully fetched data", data: [1, 2, 3] });
 });
 
 //Set the port number
