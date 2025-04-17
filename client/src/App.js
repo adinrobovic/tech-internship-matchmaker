@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DataFetcher from './components/DataFetcher'; 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -8,14 +8,20 @@ import InternshipDetail from './components/InternshipDetail';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import logo from './assets/Tech_Logo.png';
-
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 function App() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+
   return (
     <Router>
       <div className="min-h-screen flex flex-col bg-white text-black">
-        <Navbar />
+        <Navbar 
+        onLoginClick={() => setShowLoginModal(true)}
+        onSignupClick={() => setShowSignupModal(true)} 
+        />
 
         <main className="d-flex vh-100">
           {/* Left Side: Logo Section */}
@@ -29,13 +35,18 @@ function App() {
           </div>
 
           {/* Right Side: Content */}
-          <div className="bg-white w-50 p-5" style={{ maxHeight: '100vh', overflowY: 'auto' }}>
-            <h1 className="text-primary text-center mb-4">Available Internships</h1>
-            <InternshipList />
-        
+          <div className="bg-white w-50 p-5 d-flex flex-column align-items-center justify-content-center">
+            <h1 className="text-black text-center mb-4">Explore Exciting Internship Opportunities!</h1>
+
+            <div 
+              className="bg-white w-50 p-4 rounded shadow"
+              style={{ maxHeight: '70vh', minWidth: '600px', width: '600px', maxWidth: '100%', overflowY: 'auto'}}>
+                <InternshipList />
+              </div>
+
         <DataFetcher /> 
         <Routes>
-          <Route path="/" element={<InternshipList />} />
+          <Route path="/" element={<></>} />
           <Route path="/details/:id" element={<InternshipDetail />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
@@ -45,6 +56,9 @@ function App() {
         </main>
 
         <Footer />
+
+        <Login show={showLoginModal} onClose={() => setShowLoginModal(false)} />
+        <SignUp show={showSignupModal} onClose={() => setShowSignupModal(false)} />
       </div>
     </Router>
   );

@@ -36,3 +36,10 @@ code {
   opacity: 0.85;
 }
 
+.nav-link {
+  transition: color 0.3s ease;
+}
+.nav-link:hover {
+  color: #e0e7ff !important; /* Light lavender hover */
+  text-decoration: underline;
+}

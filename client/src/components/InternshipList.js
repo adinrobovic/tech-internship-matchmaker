@@ -9,26 +9,24 @@ function InternshipList() {
     ];
 
     return (
-        <div className="container mt-5">
-            <h2 className="mb-4 text-center">Available Internships</h2>
-            <div className="row">
-                {internships.map((intern, index) => (
-                    <div key={index} className="col-md-4 mb-4">
-                        <div className="card h-100 shawdow-sm">
-                            <div className="card-body">
-                                <h5 className="card-title">{intern.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">{internships.company}</h6>
-                                <p className="card-text">{intern.location}</p>
-                                <Link to="/details/1" className="btn custom-btn w-100 mt-3">
-                                    View Details
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+        <div
+          className="bg-white p-4 rounded shadow"
+          style={{ maxHeight: '60vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}
+        >
+          <h2 className="text-center text-dark mb-3">Available Internships</h2>
+    
+          {internships.map((intern, index) => (
+            <div key={index} className="card p-3 shadow-sm">
+              <h5 className="card-title mb-1">{intern.title}</h5>
+              <h6 className="text-muted mb-1">{intern.company}</h6>
+              <p className="text-muted">{intern.location}</p>
+              <Link to="/details/1" className="btn custom-btn w-100">
+                View Details
+              </Link>
             </div>
+          ))}
         </div>
-    );
+      );
 }
 
 export default InternshipList;
