@@ -1,34 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios'; 
 
 function InternshipList() {
   const [internships, setInternships] = useState([]);
 
   useEffect(() => {
-    // Simulated live data fetch
-    const data = [
-      {
-        title: 'Frontend Developer Intern',
-        company: 'InnovateX',
-        location: 'Remote',
-        applyUrl: 'https://example.com/apply/frontend'
-      },
-      {
-        title: 'Backend Developer Intern',
-        company: 'CodeBase',
-        location: 'Atlanta, GA',
-        applyUrl: 'https://example.com/apply/backend'
-      },
-      {
-        title: 'Full-Stack Intern',
-        company: 'DevLaunch',
-        location: 'New York, NY',
-        applyUrl: 'https://example.com/apply/fullstack'
-      }
-    ];
-
-    setInternships(data);
-
+    axios.get('http://localhost:3001/api/internships/live')  // updated port + route
+      .then(res => setInternships(res.data))
+      .catch(err => console.error('Error fetching internships:', err));
   }, []);
+  
   
   return (
     <div
