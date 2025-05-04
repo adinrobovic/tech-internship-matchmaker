@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Toast from './Toast';
 
 function SignUp({ show, onClose }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Shows a loading animation
     try {
       const res = await axios.post('http://localhost:3001/api/auth/register', {
         email,
@@ -17,16 +22,21 @@ function SignUp({ show, onClose }) {
       });
 
       localStorage.setItem('token', res.data.token);
-      alert('Account created!');
+      setToastMsg('✅ Account created!');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
       onClose();
       navigate('/');
     } catch (err) {
       console.error(err);
       alert(err.response?.data?.message || 'Registration failed');
+    } finally {
+      setIsLoading(false); //Done loading
     }
   };
 
   return (
+    <>
     <div className={`modal fade ${show ? 'show d-block' : ''}`} tabIndex="-1" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content p-3 shadow rounded">
@@ -64,12 +74,19 @@ function SignUp({ show, onClose }) {
               </div>
             </div>
             <div className="modal-footer border-0">
-              <button type="submit" className="btn btn-primary w-100 fw-semibold">Create Account</button>
+              <button type="submit" className="btn btn-primary w-100 fw-semibold" disabled={isLoading}>
+                {isLoading ? 'Creating Account...' : 'Create Account'}
+              </button>
             </div>
           </form>
         </div>
       </div>
     </div>
+    
+     {/* ✅ Toast component below the modal */}
+     <Toast show={showToast} message={toastMsg} />
+
+     </>
   );
 }
 

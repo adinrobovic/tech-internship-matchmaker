@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import logo from './assets/Tech_Logo.png';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { UserProvider } from './components/UserContext';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const [showSignupModal, setShowSignupModal] = useState(false);
 
   return (
+    <UserProvider>
     <Router>
       <div className="min-h-screen flex flex-col bg-white text-black">
         <Navbar 
@@ -61,6 +63,7 @@ function App() {
         <SignUp show={showSignupModal} onClose={() => setShowSignupModal(false)} />
       </div>
     </Router>
+    </UserProvider>
   );
 }
 

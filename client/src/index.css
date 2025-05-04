@@ -43,3 +43,11 @@ code {
   color: #e0e7ff !important; /* Light lavender hover */
   text-decoration: underline;
 }
+
+
+/* Remove Bootstrap's red invalid icon */
+input.form-control.is-invalid,
+input.form-control.is-invalid:focus {
+  background-image: none !important;
+  box-shadow: none !important; /* optional: remove red glow */
+}
