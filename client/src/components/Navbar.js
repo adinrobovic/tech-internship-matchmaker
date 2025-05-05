@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState  } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/Tech_Logo.png';
 import { UserContext } from './UserContext';
 
-
 function Navbar({ onLoginClick, onSignupClick }) {
 
   const { user, setUser } = useContext(UserContext);
-  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     const email = localStorage.getItem('userEmail');
     if (email) setUser ({ email });
-    setLoading(false);
   }, [setUser]);
 
   return (
@@ -33,24 +30,21 @@ function Navbar({ onLoginClick, onSignupClick }) {
               </Link>
             </li>
             {user ? (
-  <li className="nav-item d-flex align-items-center text-white mx-2">
-    <i className="bi bi-person-circle fs-5 me-2"></i>
-    <span className="fw-semibold">{user.email}</span>
-  </li>
-) : !loading && (
-  <>
-    <li className="nav-item">
-      <Link className="nav-link text-white mx-2 fw-semibold" to="#" onClick={onLoginClick}>
-        Login
-      </Link>
-    </li>
-    <li className="nav-item">
-      <Link className="nav-link text-white mx-2 fw-semibold" to="#" onClick={onSignupClick}>
-        Sign Up
-      </Link>
-    </li>
-  </>
-)}
+              <div className="d-flex align-items-center gap-3">
+                <Link to ="/account" className="nav-link text-white fw-semibold px-3">
+                  <i className="bi bi-person-circle me-1"></i>Account
+                </Link>
+              </div>
+            ) : (
+              <>
+                <Link to="#" className="nav-link text-white fw-semibold px-3" onClick={onLoginClick}>
+                  Login
+                </Link>
+                <Link to="#" className="nav-link text-white fw-semibold px-3" onClick={onSignupClick}>
+                  Sign Up
+                </Link>
+              </>
+            )}
           </ul>
         </div>
       </div>

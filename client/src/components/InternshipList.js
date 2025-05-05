@@ -10,6 +10,12 @@ function InternshipList() {
       .catch(err => console.error('Error fetching internships:', err));
   }, []);
   
+  const handleVisit = (intern) => {
+    let visited = JSON.parse(localStorage.getItem('visitedInternships')) || [];
+    visited = [intern, ...visited.filter(item => item.id !== intern.id)];
+    if (visited.length > 5) visited = visited.slice(0, 5);
+    localStorage.setItem('visitedInternships', JSON.stringify(visited));
+  };
   
   return (
     <div
@@ -28,6 +34,7 @@ function InternshipList() {
             className="btn custom-btn w-100"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => handleVisit(intern)}
           >
             Apply Now
           </a>
