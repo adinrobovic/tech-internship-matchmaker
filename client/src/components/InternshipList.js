@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 
 function InternshipList() {
   const [internships, setInternships] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/internships/live')  // updated port + route
+    axios.get('http://localhost:3001/api/internships/live')
       .then(res => setInternships(res.data))
       .catch(err => console.error('Error fetching internships:', err));
   }, []);
-  
+
   const handleVisit = (intern) => {
-    let visited = JSON.parse(localStorage.getItem('visitedInternships')) || [];
-    visited = [intern, ...visited.filter(item => item.id !== intern.id)];
-    if (visited.length > 5) visited = visited.slice(0, 5);
+  try {
+    let visited = JSON.parse(localStorage.getItem('visitedInternships')) || []; // Checks if visitedInternships exists in localStorage, if so, it parses the JSON string into an array. 
+
+    // Remove any existing instance of this internship
+    visited = visited.filter(item => item.applyUrl !== intern.applyUrl);
+
+    // Add it to the top
+    visited.unshift(intern);
+
+    // Limit to 10 max
+    // If the arry gets too long, it trims off the oldest ones. 
+    visited = visited.slice(0, 10); 
+
     localStorage.setItem('visitedInternships', JSON.stringify(visited));
-  };
+  } catch (err) {
+    console.error('Error updating localStorage:', err);
+  }
+};
   
   return (
-    <div
-      className="bg-white p-4 rounded shadow"
-      style={{ maxHeight: '60vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}
-    >
+    <div className="bg-white p-4 rounded shadow"
+         style={{ maxHeight: '60vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <h2 className="text-center text-dark mb-3">Available Internships</h2>
 
       {internships.map((intern, index) => (
@@ -45,5 +56,4 @@ function InternshipList() {
 }
 
 export default InternshipList;
-
 

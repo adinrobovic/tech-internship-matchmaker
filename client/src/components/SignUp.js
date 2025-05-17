@@ -1,27 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Toast from './Toast';
+import { UserContext } from './UserContext';
 
 function SignUp({ show, onClose }) {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [showToast, setShowToast] = useState(false);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Shows a loading animation
     try {
-      const res = await axios.post('http://localhost:3001/api/auth/register', {
+      await axios.post('http://localhost:3001/api/auth/register', {
         email,
         password
       });
 
-      localStorage.setItem('token', res.data.token);
+      // Log the user in immediately
+      const loginRes = await axios.post('http://localhost:3001/api/auth/login', {
+        email,
+        password
+      });
+
+      localStorage.setItem('token', loginRes.data.token);
+      localStorage.setItem('userEmail', email);
+      setUser({ email });
+
       setToastMsg('✅ Account created!');
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
