@@ -5,7 +5,7 @@ function InternshipList() {
   const [internships, setInternships] = useState([]);
 
   useEffect(() => {
-    axios.get('https://tech-internship-matchmaker.onrender.com/api/internships/live')
+    axios.get('api/internships')
       .then(res => setInternships(res.data))
       .catch(err => console.error('Error fetching internships:', err));
   }, []);

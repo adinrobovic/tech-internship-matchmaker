@@ -1,33 +1,129 @@
-//This code initializes an Express applicatoin and sets up a basic route that responds with "Hello World!" when you access the root URL.
-
+require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
+const mongoose = require('mongoose');
+const axios = require('axios');
+const cron = require('node-cron');
+const Internship = require('./models/Internship');
+const authRoutes = require('./routes/authRoute');
+
 const app = express();
 
-//For development, allow all origins
-app.use(cors());
+// Middleware
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+  ],
+  credentials: true
+}));
 
-//For production/ restrict origins
-//app.use(cors({ origin: 'https://yourdomain.com}));
+app.use(express.json());
 
-//Define a route handler for the default home page
-app.get('/api/data', (req, res) => {
-    res.send({ message: "Successfully fetched data", data: [1, 2, 3] });
-});
+// Debug logger to see incoming requests
 
-//Set the port number
-const PORT = process.env.PORT || 3000;
+app.use('/api/auth', authRoutes);
 
-//Start the server on the specified port
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
-//Using connection string to set up the database connection
-
-const mongoose = require('mongoose');
-
+// MongoDB Connection
 const dbURI = 'mongodb+srv://adinrobovic:jgENUxZlryJKHiD8@internmatchcluster.tp7qa.mongodb.net/?retryWrites=true&w=majority&appName=InternMatchCluster';
-mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected successfully'))
-    .catch(err => console.log('MongoDB connection error: ', err));
+mongoose.connect(dbURI)
+    .then(() => console.log('✅ MongoDB connected successfully'))
+    .catch(err => console.error('❌ MongoDB connection error:', err));
+
+// Adzuna API Credentials
+const ADZUNA_APP_ID = process.env.ADZUNA_APP_ID || "eaf2ab57";
+const ADZUNA_APP_KEY = process.env.ADZUNA_APP_KEY || "53e85070735e4d2fa62fef167b02c10c";
+
+// Fetch from Adzuna and store in MongoDB
+async function fetchInternshipsFromAdzuna() {
+  try {
+    console.log('🔄 Fetching internships from Adzuna...');
+    const response = await axios.get('https://api.adzuna.com/v1/api/jobs/us/search/1', {
+      params: {
+        app_id: ADZUNA_APP_ID,
+        app_key: ADZUNA_APP_KEY,
+        what: 'IT internship',
+        where: 'Atlanta, Georgia',
+        results_per_page: 20,
+        sort_by: 'date',
+      },
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    const internships = response.data.results.map(job => ({
+      title: job.title || 'No title',
+      company: job.company?.display_name || 'Unknown Company',
+      location: job.location?.display_name || 'Unknown Location',
+      applyUrl: job.redirect_url || '#',
+    }));
+
+    await Internship.deleteMany({});
+    await Internship.insertMany(internships);
+
+    console.log('✅ Internships cached in MongoDB');
+  } catch (error) {
+    console.error('❌ Error during Adzuna fetch:', error.response?.data || error.message);
+  }
+}
+
+// Initial fetch
+fetchInternshipsFromAdzuna();
+
+// Scheduled fetch every 2 days
+cron.schedule('0 0 */2 * *', fetchInternshipsFromAdzuna);
+
+// Routes
+
+// Test route
+app.get('/api/data', (req, res) => {
+  res.send({ message: "API is working", data: [1, 2, 3] });
+});
+
+// Cached internships (from MongoDB)
+app.get('/api/internships', async (req, res) => {
+  try {
+    const internships = await Internship.find();
+    res.json(internships);
+  } catch (err) {
+    console.error('❌ Error fetching cached internships:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// 🔥 Real-time internships (live from Adzuna)
+app.get('/api/internships/live', async (req, res) => {
+  try {
+    const response = await axios.get('https://api.adzuna.com/v1/api/jobs/us/search/1', {
+      params: {
+        app_id: ADZUNA_APP_ID,
+        app_key: ADZUNA_APP_KEY,
+        what: 'IT internship',
+        where: 'Atlanta, Georgia',
+        results_per_page: 20,
+        sort_by: 'date',
+      },
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    const internships = response.data.results.map(job => ({
+      title: job.title || 'No title',
+      company: job.company?.display_name || 'Unknown Company',
+      location: job.location?.display_name || 'Unknown Location',
+      applyUrl: job.redirect_url || '#',
+    }));
+
+    res.json(internships);
+  } catch (error) {
+    console.error('❌ Error fetching real-time internships:', error.response?.data || error.message);
+    res.status(500).json({ message: 'Error fetching real-time data' });
+  }
+});
+
+// Start server
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on port ${PORT}`);
+});
