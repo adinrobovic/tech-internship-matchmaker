@@ -25,7 +25,7 @@ function App() {
           />
 
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage onTriggerSignUp={() => setShowSignupModal(true)} />} />
             <Route path="/details/:id" element={<InternshipDetail />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />

@@ -3,7 +3,7 @@ import logo from '../assets/Tech_Logo.png';
 import InternshipList from './InternshipList';
 import DataFetcher from './DataFetcher';
 
-const HomePage = () => {
+const HomePage = ({ onTriggerSignUp }) => {
     return (
         <main className="d-flex vh-100">
           <div className="bg-white d-flex align-items-center justify-content-center w-50 p-5">
@@ -19,7 +19,7 @@ const HomePage = () => {
             <div 
               className="bg-white w-50 p-4 rounded shadow"
               style={{ maxHeight: '70vh', minWidth: '600px', width: '600px', maxWidth: '100%', overflowY: 'auto' }}>
-              <InternshipList />
+              <InternshipList onTriggerSignUp={onTriggerSignUp}/>
             </div>
             <DataFetcher />
           </div>

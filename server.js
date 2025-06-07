@@ -83,7 +83,14 @@ app.get('/api/data', (req, res) => {
 // Cached internships (from MongoDB)
 app.get('/api/internships', async (req, res) => {
   try {
-    const internships = await Internship.find();
+    const { state } = req.query;
+
+    let query = {};
+    if (state) {
+      query.location = new RegExp(state, 'i'); 
+    } 
+
+    const internships = await Internship.find(query);
     res.json(internships);
   } catch (err) {
     console.error('❌ Error fetching cached internships:', err);
@@ -94,12 +101,15 @@ app.get('/api/internships', async (req, res) => {
 // 🔥 Real-time internships (live from Adzuna)
 app.get('/api/internships/live', async (req, res) => {
   try {
+    const { state } = req.query;
+    const locationQuery = state ? `${state}` : 'United States';
+
     const response = await axios.get('https://api.adzuna.com/v1/api/jobs/us/search/1', {
       params: {
         app_id: ADZUNA_APP_ID,
         app_key: ADZUNA_APP_KEY,
         what: 'IT internship',
-        where: 'Atlanta, Georgia',
+        where: locationQuery,
         results_per_page: 20,
         sort_by: 'date',
       },
