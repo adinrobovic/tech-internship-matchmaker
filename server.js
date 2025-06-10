@@ -24,14 +24,14 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 
 // MongoDB Connection
-const dbURI = 'mongodb+srv://adinrobovic:jgENUxZlryJKHiD8@internmatchcluster.tp7qa.mongodb.net/?retryWrites=true&w=majority&appName=InternMatchCluster';
+const dbURI = process.env.MONGO_URI;
 mongoose.connect(dbURI)
     .then(() => console.log('✅ MongoDB connected successfully'))
     .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Adzuna API Credentials
-const ADZUNA_APP_ID = process.env.ADZUNA_APP_ID || "eaf2ab57";
-const ADZUNA_APP_KEY = process.env.ADZUNA_APP_KEY || "53e85070735e4d2fa62fef167b02c10c";
+const ADZUNA_APP_ID = process.env.ADZUNA_APP_ID 
+const ADZUNA_APP_KEY = process.env.ADZUNA_APP_KEY 
 
 // Fetch from Adzuna and store in MongoDB
 async function fetchInternshipsFromAdzuna() {
