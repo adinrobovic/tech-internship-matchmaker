@@ -132,6 +132,19 @@ app.get('/api/internships/live', async (req, res) => {
   }
 });
 
+const path = require('path');
+
+// Serve React Frontend
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+// Fallback for React: serve index.html for non-API routes
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  }
+});
+
+
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
