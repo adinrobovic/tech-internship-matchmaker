@@ -13,8 +13,9 @@ function InternshipList({ onTriggerSignUp }) {
   useEffect(() => {
 
     const url = selectedState
-      ? `/api/internships/live?state=${encodeURIComponent(selectedState)}`
-      : '/api/internships/live';
+      ? `https://tech-internship-matchmaker-production.up.railway.app/api/internships/live?state=${encodeURIComponent(selectedState)}`
+      : 'https://tech-internship-matchmaker-production.up.railway.app/api/internships/live';
+
 
       axios.get(url)
       .then(res => setInternships(res.data))

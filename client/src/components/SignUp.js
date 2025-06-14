@@ -18,13 +18,13 @@ function SignUp({ show, onClose }) {
     e.preventDefault();
     setIsLoading(true); // Shows a loading animation
     try {
-      await axios.post('/api/auth/register', {
+      await axios.post('https://tech-internship-matchmaker-production.up.railway.app/api/auth/register', {
         email,
         password
       });
 
       // Log the user in immediately
-      const loginRes = await axios.post('/api/auth/login', {
+      const loginRes = await axios.post('https://tech-internship-matchmaker-production.up.railway.app/api/auth/login', {
         email,
         password
       });

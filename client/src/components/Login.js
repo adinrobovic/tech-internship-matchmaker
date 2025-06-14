@@ -12,7 +12,7 @@ function Login({ show, onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.post('http://localhost:3001/api/auth/login', {
+          const res = await axios.post('https://tech-internship-matchmaker-production.up.railway.app/api/auth/login', {
             email,
             password
           });
