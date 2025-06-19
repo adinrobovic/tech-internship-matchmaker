@@ -30,6 +30,11 @@ mongoose.connect(dbURI)
     .then(() => console.log('✅ MongoDB connected successfully'))
     .catch(err => console.error('❌ MongoDB connection error:', err));
 
+// DEBUG: log connection status every 5 seconds
+setInterval(() => {
+  console.log('⏳ Mongoose readyState:', mongoose.connection.readyState);
+}, 5000);
+
 // Adzuna API Credentials
 const ADZUNA_APP_ID = process.env.ADZUNA_APP_ID 
 const ADZUNA_APP_KEY = process.env.ADZUNA_APP_KEY 
