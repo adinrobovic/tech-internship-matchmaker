@@ -20,9 +20,9 @@ Responsive Design: Ensures optimal viewing experience across devices.
 
 Frontend:
 
-React.js
+  React.js
 
-Axios
+  Axios
 
 Bootstrap
 arxiv.org
