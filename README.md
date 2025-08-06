@@ -6,15 +6,15 @@ Tech Internship Matchmaker is a full-stack web application designed to help aspi
 Check out the live application: https://tech-internship-matchmaker.vercel.app
 
 🛠️ Features
-Internship Listings: Aggregates IT internship opportunities in Atlanta from the Adzuna API.
+ - Internship Listings: Aggregates IT internship opportunities in Atlanta from the Adzuna API.
 
-User Authentication: Secure registration and login functionalities with JWT-based authentication.
+ - User Authentication: Secure registration and login functionalities with JWT-based authentication.
 
-Recently Visited: Tracks and displays internships recently viewed by the user.
+ - Recently Visited: Tracks and displays internships recently viewed by the user.
 
-Resume Upload: Allows users to upload their resumes for easy application processes.
+ - Resume Upload: Allows users to upload their resumes for easy application processes.
 
-Responsive Design: Ensures optimal viewing experience across devices.
+ - Responsive Design: Ensures optimal viewing experience across devices.
 
 🧰 Tech Stack
 
