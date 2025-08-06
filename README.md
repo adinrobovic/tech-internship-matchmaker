@@ -20,48 +20,32 @@ Responsive Design: Ensures optimal viewing experience across devices.
 
 Frontend:
 
-  React.js
+ - React.js
 
-  Axios
+ - Axios
 
-Bootstrap
-arxiv.org
-+2
-github.com
-+2
-makeareadme.com
-+6
-wired.com
-+6
-gist.github.com
-+6
+ - Bootstrap
+
 
 
 Backend:
 
-Node.js
+ - Node.js
 
-Express.js
+ - Express.js
 
-MongoDB with Mongoose
+ - MongoDB with Mongoose
 
-JWT for authentication
+ - JWT for authentication
 
-Adzuna API integration
-docs.github.com
-+11
-en.wikipedia.org
-+11
-tilburgsciencehub.com
-+11
+ - Adzuna API integration
 
 Deployment:
 
-Frontend: Vercel
+ - Frontend: Vercel
 
-Backend: Render
-reddit.com
-+1
+ - Backend: Render
+
 
 🧑‍💻 Getting Started
 Prerequisites
@@ -131,12 +115,6 @@ ADZUNA_APP_KEY
 JWT_SECRET
 
 MONGODB_URI
-github.com
-+18
-docs.github.com
-+18
-gist.github.com
-+18
 
 🤝 Contributing
 Contributions are welcome! Please follow these steps:
