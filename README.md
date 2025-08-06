@@ -1,12 +1,12 @@
 # tech-internship-matchmaker
 Tech Internship Matchmaker
-Tech Internship Matchmaker is a full-stack web application designed to help aspiring tech interns find relevant internship opportunities in Atlanta, Georgia. The platform aggregates listings from the Adzuna API, allowing users to browse, apply, and track internships seamlessly.
+Tech Internship Matchmaker is a full-stack web application designed to help aspiring tech interns find relevant internship opportunities throughout desired states. The platform aggregates listings from the Adzuna API, allowing users to browse, apply, and track internships seamlessly.
 
 🚀 Live Demo
 Check out the live application: https://tech-internship-matchmaker.vercel.app
 
 🛠️ Features
- - Internship Listings: Aggregates IT internship opportunities in Atlanta from the Adzuna API.
+ - Internship Listings: Aggregates IT internship opportunities from the Adzuna API.
 
  - User Authentication: Secure registration and login functionalities with JWT-based authentication.
 
