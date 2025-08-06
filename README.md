@@ -17,6 +17,7 @@ Resume Upload: Allows users to upload their resumes for easy application process
 Responsive Design: Ensures optimal viewing experience across devices.
 
 🧰 Tech Stack
+
 Frontend:
 
 React.js
@@ -34,6 +35,7 @@ wired.com
 +6
 gist.github.com
 +6
+
 
 Backend:
 
